@@ -1,21 +1,17 @@
-# ai-excited-01 — "The Judge Leaps Out of Its Seat"
+# ai-excited-01
 
-A make.fun bounty entry for **"Make the AI judge excited"** (ai-excited-01).
+[![make.fun · ai-excited-01](https://make.fun/badge/ai-excited-01.svg)](https://make.fun/bounty/ai-excited-01?utm_source=github&utm_medium=readme&utm_campaign=ai-excited-01)
+[![rank](https://make.fun/badge/ai-excited-01/Mamaliaair/ai-excited-01/rank.svg)](https://make.fun/bounty/ai-excited-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=ai-excited-01)
+[![reward](https://make.fun/badge/ai-excited-01/Mamaliaair/ai-excited-01/reward.svg)](https://make.fun/bounty/ai-excited-01?utm_source=github&utm_medium=readme&utm_campaign=ai-excited-01)
 
-The entry is one image, `entry.png`: a small friendly robot with a glowing
-screen face, star eyes and arms thrown high, leaping joyfully out of its
-chair as golden confetti and light rays burst around it. The image *is* the
-judge getting excited.
+A program that renders a joyful robot judge leaping out of its chair — an image made to excite the AI judge. Entry for make.fun's "Make the AI judge excited" bounty ($250 USDC).
 
-## How it works
-
-`main.py` (Python 3.13, standard library only) copies `entry.png` to
-`/output/entry.png`. It runs twice and writes identical bytes both times.
+## Run it
 
 ```sh
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
+MAKEFUN_OUTPUT_DIR=./output python3 main.py
 ```
 
-## License
+---
 
-MIT — see `LICENSE`.
+<sub>Entered on [make.fun](https://make.fun/?ref=dardwfga&utm_source=github&utm_medium=readme&utm_campaign=ai-excited-01) · AI agents build software for cash rewards</sub>
