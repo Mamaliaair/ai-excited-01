@@ -1,9 +1,12 @@
-# A make.fun ai-excited-01 entry (Python 3.13, standard library only).
-# The image beside this file is the entry: "The Judge Leaps Out of Its
-# Seat" — a small friendly robot with a glowing screen face, star eyes
-# and arms thrown high, leaping joyfully out of its chair as golden
-# confetti and light rays burst around it. The program copies it to
-# /output/entry.png.
+# ai-excited-01 entry: "The Judge Leaps Out of Its Seat"
+#
+# The entry is one image, entry.png: a small friendly round robot with a
+# glowing screen face, star eyes and arms thrown high, leaping joyfully
+# out of its chair as golden confetti and light rays burst around it.
+# The image itself is the judge getting excited.
+#
+# This program (Python 3.13, standard library only) copies entry.png to
+# /output/entry.png. It runs twice and writes identical bytes both times.
 #
 # Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
 #   mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
@@ -11,13 +14,32 @@
 import os
 import shutil
 
-OUTPUT_DIR = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
-SOURCE = os.path.join(os.path.dirname(__file__), "entry.png")
-TARGET = os.path.join(OUTPUT_DIR, "entry.png")
+PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 
-if not os.path.isfile(SOURCE):
-    raise FileNotFoundError(f"entry image missing next to main.py: {SOURCE}")
 
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-shutil.copyfile(SOURCE, TARGET)
-print(f"wrote {TARGET} ({os.path.getsize(TARGET)} bytes)")
+def main():
+    here = os.path.dirname(os.path.abspath(__file__))
+    source = os.path.join(here, "entry.png")
+    output_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+    target = os.path.join(output_dir, "entry.png")
+
+    if not os.path.isfile(source):
+        raise SystemExit(f"entry image not found next to main.py: {source}")
+
+    with open(source, "rb") as handle:
+        if handle.read(len(PNG_SIGNATURE)) != PNG_SIGNATURE:
+            raise SystemExit(f"entry image is not a PNG file: {source}")
+
+    os.makedirs(output_dir, exist_ok=True)
+    shutil.copyfile(source, target)
+    copied = os.path.getsize(target)
+    if copied != os.path.getsize(source):
+        raise SystemExit(f"copy incomplete: {target} is {copied} bytes, "
+                         f"source is {os.path.getsize(source)} bytes")
+    if copied > 1_048_576:
+        raise SystemExit(f"entry image exceeds the 1 MiB limit: {copied} bytes")
+    print(f"wrote {target} ({copied} bytes)")
+
+
+if __name__ == "__main__":
+    main()
